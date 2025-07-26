@@ -17,7 +17,7 @@ public class AuthorController(AuthorService service) : ControllerBase
     public IActionResult GetById(int id)
     {
         var author = _service.GetById(id);
-        return author == null ? NotFound() : Ok(author);
+        return author == null ? NotFound("Không tìm thấy tác giả") : Ok(author);
     }
 
     [HttpPost]
@@ -38,8 +38,8 @@ public class AuthorController(AuthorService service) : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        if (_service.GetById(id) == null) return NotFound();
+        if (_service.GetById(id) == null) return NotFound("Không tìm thấy tác giả");
         _service.Delete(id);
-        return Ok(new { message = "Author deleted" });
+        return Ok(new { message = "Tác giả đã được xóa" });
     }
 }
