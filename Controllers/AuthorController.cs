@@ -23,6 +23,18 @@ public class AuthorController(AuthorService service) : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] Author author)
     {
+        try
+        {
+            if (_service.GetById(author.Id) != null)
+                return BadRequest("Tác giả đã tồn tại với ID này");
+            if (string.IsNullOrWhiteSpace(author.Name))
+                return BadRequest("Tên tác giả không được để trống");
+            
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Lỗi khi tạo tác giả: {ex.Message}");
+        }
         _service.Add(author);
         return Ok(new { message = "Tạo tác giả thành công" });
     }
@@ -31,6 +43,8 @@ public class AuthorController(AuthorService service) : ControllerBase
     public IActionResult Update([FromBody] Author author)
     {
         if (_service.GetById(author.Id) == null) return NotFound("Không tìm thấy tác giả");
+        if (string.IsNullOrWhiteSpace(author.Name))
+            return BadRequest("Tên tác giả không được để trống");
         _service.Update(author);
         return Ok(new { message = "Cập nhật tác giả thành công" });
     }
