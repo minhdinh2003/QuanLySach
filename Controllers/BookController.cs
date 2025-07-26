@@ -15,7 +15,7 @@ public class BookController(BookService service) : ControllerBase
     public IActionResult GetAll() => Ok(_service.GetAll());
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id) 
+    public IActionResult GetById(int id)
     {
         var book = _service.GetById(id);
         return book == null ? NotFound("Không tìm thấy sách") : Ok(book);
@@ -26,7 +26,7 @@ public class BookController(BookService service) : ControllerBase
     { // kiểm tra tên sách có hợp lệ hay không trước khi thêm sách mới
         try
         {
-            if (string.IsNullOrWhiteSpace(book.Title)) 
+            if (string.IsNullOrWhiteSpace(book.Title))
                 return BadRequest("Tiêu đề sách không được để trống");
             _service.Add(book);
             return StatusCode(201, new { message = "Sách được tạo thành công" });
@@ -41,10 +41,11 @@ public class BookController(BookService service) : ControllerBase
     public IActionResult Update([FromBody] Book book)
     {   // kiểm tra sách có tồn tại hay không và tên sách có hợp lệ hay không trước khi cập nhật
 
+        if (string.IsNullOrWhiteSpace(book.Title))
+            return BadRequest("Tiêu đề sách không được để trống");
         if (_service.GetById(book.Id) == null)
             return NotFound("Không tìm thấy sách");
-        if (string.IsNullOrWhiteSpace(book.Title)) 
-            return BadRequest("Tiêu đề sách không được để trống");
+
         try
         {
             _service.Update(book);

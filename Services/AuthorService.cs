@@ -42,5 +42,10 @@ public class AuthorService(string connectionString)
         using var conn = Connection;
         conn.Execute("DELETE FROM Authors WHERE Id = @Id", new { Id = id });
     }
+    public IEnumerable<Book> GetBooksByAuthorId(int authorId)//lấy sách theo id tác giả
+    {
+        using var conn = Connection;
+        return conn.Query<Book>("SELECT * FROM Books WHERE AuthorId = @AuthorId", new { AuthorId = authorId });
+    }
 }
 

@@ -20,6 +20,15 @@ public class AuthorController(AuthorService service) : ControllerBase
         return author == null ? NotFound("Không tìm thấy tác giả") : Ok(author);
     }
 
+    [HttpGet("books/{authorId}")]
+    public IActionResult GetBooksByAuthorId(int authorId)
+    { // kiểm tra tác giả có tồn tại hay không rồi lấy sách theo id tác giả
+        if (_service.GetById(authorId) == null)
+            return NotFound("Không tìm thấy tác giả");
+        var books = _service.GetBooksByAuthorId(authorId);
+        return Ok(books);
+    }
+
     [HttpPost]
     public IActionResult Create([FromBody] Author author)
     { // kiểm tra tên tác giả có hợp lệ hay không trước khi thêm tác giả mới
