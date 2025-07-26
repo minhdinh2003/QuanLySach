@@ -15,7 +15,7 @@ public class BookController(BookService service) : ControllerBase
     public IActionResult GetAll() => Ok(_service.GetAll());
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public IActionResult GetById(int id) 
     {
         var book = _service.GetById(id);
         return book == null ? NotFound("Không tìm thấy sách") : Ok(book);
@@ -23,37 +23,44 @@ public class BookController(BookService service) : ControllerBase
 
     [HttpPost]
     public IActionResult Create([FromBody] Book book)
-    {
+    { // kiểm tra tên sách có hợp lệ hay không trước khi thêm sách mới
         try
         {
-            if (_service.GetById(book.Id) != null)
-                return BadRequest("Sách đã tồn tại với ID này");
-            if (string.IsNullOrWhiteSpace(book.Title))
+            if (string.IsNullOrWhiteSpace(book.Title)) 
                 return BadRequest("Tiêu đề sách không được để trống");
             _service.Add(book);
-            return Ok(new { message = "Sách được tạo thành công" });
+            return StatusCode(201, new { message = "Sách được tạo thành công" });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { error = ex.Message });
+            return BadRequest("Tác giả không tồn tại");
         }
     }
 
     [HttpPut]
     public IActionResult Update([FromBody] Book book)
-    {
-        if (_service.GetById(book.Id) == null) return NotFound("Không tìm thấy sách");
-        if (string.IsNullOrWhiteSpace(book.Title))
+    {   // kiểm tra sách có tồn tại hay không và tên sách có hợp lệ hay không trước khi cập nhật
+
+        if (_service.GetById(book.Id) == null)
+            return NotFound("Không tìm thấy sách");
+        if (string.IsNullOrWhiteSpace(book.Title)) 
             return BadRequest("Tiêu đề sách không được để trống");
-        _service.Update(book);
-        return Ok(new { message = "Sách đã được cập nhật" });
+        try
+        {
+            _service.Update(book);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Tác giả không tồn tại");
+        }
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int id)// kiểm tra sách có tồn tại hay không rồi xóa sách theo id 
     {
         if (_service.GetById(id) == null) return NotFound("không tìm thấy sách");
         _service.Delete(id);
-        return Ok(new { message = "Sách đã được xóa" });
+        return NoContent();
     }
 }

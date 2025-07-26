@@ -42,7 +42,7 @@ namespace QuanLySach.Services
             });
         }
 
-        public void Delete(int id)
+        public void Delete(int id)// xoa sách theo id
         {
             using var conn = Connection;
             conn.Execute("DELETE FROM Books WHERE Id = @Id", new { Id = id });

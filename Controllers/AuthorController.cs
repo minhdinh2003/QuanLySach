@@ -22,38 +22,37 @@ public class AuthorController(AuthorService service) : ControllerBase
 
     [HttpPost]
     public IActionResult Create([FromBody] Author author)
-    {
+    { // kiểm tra tên tác giả có hợp lệ hay không trước khi thêm tác giả mới
         try
         {
-            if (_service.GetById(author.Id) != null)
-                return BadRequest("Tác giả đã tồn tại với ID này");
             if (string.IsNullOrWhiteSpace(author.Name))
                 return BadRequest("Tên tác giả không được để trống");
-            
+            _service.Add(author);
+            return StatusCode(201, new { message = "Tác giả được tạo thành công" }); 
         }
         catch (Exception ex)
         {
             return BadRequest($"Lỗi khi tạo tác giả: {ex.Message}");
         }
-        _service.Add(author);
-        return Ok(new { message = "Tạo tác giả thành công" });
+        
     }
 
     [HttpPut]
     public IActionResult Update([FromBody] Author author)
-    {
-        if (_service.GetById(author.Id) == null) return NotFound("Không tìm thấy tác giả");
+    { // kiểm tra tác giả có tồn tại hay không và tên tác giả có hợp lệ hay không trước khi cập nhật
+        if (_service.GetById(author.Id) == null)
+            return NotFound("Không tìm thấy tác giả");
         if (string.IsNullOrWhiteSpace(author.Name))
             return BadRequest("Tên tác giả không được để trống");
         _service.Update(author);
-        return Ok(new { message = "Cập nhật tác giả thành công" });
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int id)// kiểm tra tác giả có tồn tại hay không rồi xóa tác giả theo id
     {
         if (_service.GetById(id) == null) return NotFound("Không tìm thấy tác giả");
         _service.Delete(id);
-        return Ok(new { message = "Tác giả đã được xóa" });
+        return NoContent();
     }
 }
