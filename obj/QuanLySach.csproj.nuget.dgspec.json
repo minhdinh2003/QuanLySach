@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/minhdinh/Documents/QuanLySach/QuanLySach.csproj": {}
+    "/home/minhdinh/Downloads/QuanLySach/QuanLySach.csproj": {}
   },
   "projects": {
-    "/home/minhdinh/Documents/QuanLySach/QuanLySach.csproj": {
+    "/home/minhdinh/Downloads/QuanLySach/QuanLySach.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/minhdinh/Documents/QuanLySach/QuanLySach.csproj",
+        "projectUniqueName": "/home/minhdinh/Downloads/QuanLySach/QuanLySach.csproj",
         "projectName": "QuanLySach",
-        "projectPath": "/home/minhdinh/Documents/QuanLySach/QuanLySach.csproj",
+        "projectPath": "/home/minhdinh/Downloads/QuanLySach/QuanLySach.csproj",
         "packagesPath": "/home/minhdinh/.nuget/packages/",
-        "outputPath": "/home/minhdinh/Documents/QuanLySach/obj/",
+        "outputPath": "/home/minhdinh/Downloads/QuanLySach/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/minhdinh/.nuget/NuGet/NuGet.Config"
@@ -79,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

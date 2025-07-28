@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5E2xnOlrorc=",
+  "dgSpecHash": "4u6gKUKo62s=",
   "success": true,
-  "projectFilePath": "/home/minhdinh/Documents/QuanLySach/QuanLySach.csproj",
+  "projectFilePath": "/home/minhdinh/Downloads/QuanLySach/QuanLySach.csproj",
   "expectedPackageFiles": [
     "/home/minhdinh/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/home/minhdinh/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
